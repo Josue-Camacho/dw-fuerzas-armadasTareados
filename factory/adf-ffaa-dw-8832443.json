@@ -1,0 +1,10 @@
+{
+	"name": "adf-ffaa-dw-8832443",
+	"properties": {
+		"trustModeClaimForMi": {
+			"value": "Enabled",
+			"editable": true
+		}
+	},
+	"location": "brazilsouth"
+}
