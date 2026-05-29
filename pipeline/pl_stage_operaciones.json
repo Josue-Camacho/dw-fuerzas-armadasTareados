@@ -1,0 +1,251 @@
+{
+	"name": "pl_stage_operaciones",
+	"properties": {
+		"activities": [
+			{
+				"name": "copy_stg_operaciones",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": "SELECT\n    id_operacion AS id_operacion_origen,\n    id_tipo AS id_tipo_origen,\n    id_unidad_resp AS id_unidad_responsable_origen,\n    id_zona AS id_zona_origen,\n    nombre_operacion,\n    TRY_CONVERT(date, fecha_inicio, 105) AS fecha_inicio,\n    TRY_CONVERT(date, fecha_fin, 105) AS fecha_fin,\n    CAST(efectivos_desplegados AS VARCHAR(100)) AS efectivos_desplegados_raw,\n    CAST(vehiculos_utilizados AS VARCHAR(100)) AS vehiculos_utilizados_raw,\n    CAST(duracion_dias AS VARCHAR(100)) AS duracion_dias_raw,\n    CAST(costo_operacion AS VARCHAR(100)) AS costo_operacion_raw,\n    resultado,\n    CAST(detenidos AS VARCHAR(100)) AS detenidos_raw,\n    CAST(area_km2 AS VARCHAR(100)) AS area_km2_raw,\n    CAST(incidentes AS VARCHAR(100)) AS incidentes_raw,\n    observaciones\nFROM [oltp].[tbl_operaciones];",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"preCopyScript": "DELETE FROM dbo.stg_operaciones;",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false,
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "id_operacion_origen",
+									"type": "Int32",
+									"physicalType": "int"
+								},
+								"sink": {
+									"name": "id_operacion_origen",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "id_tipo_origen",
+									"type": "Int32",
+									"physicalType": "int"
+								},
+								"sink": {
+									"name": "id_tipo_origen",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "id_unidad_responsable_origen",
+									"type": "Int32",
+									"physicalType": "int"
+								},
+								"sink": {
+									"name": "id_unidad_responsable_origen",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "id_zona_origen",
+									"type": "Int32",
+									"physicalType": "int"
+								},
+								"sink": {
+									"name": "id_zona_origen",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "nombre_operacion",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "nombre_operacion",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "fecha_inicio",
+									"type": "Date",
+									"physicalType": "date"
+								},
+								"sink": {
+									"name": "fecha_inicio",
+									"type": "Date",
+									"physicalType": "date"
+								}
+							},
+							{
+								"source": {
+									"name": "fecha_fin",
+									"type": "Date",
+									"physicalType": "date"
+								},
+								"sink": {
+									"name": "fecha_fin",
+									"type": "Date",
+									"physicalType": "date"
+								}
+							},
+							{
+								"source": {
+									"name": "efectivos_desplegados_raw",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "efectivos_desplegados_raw",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "vehiculos_utilizados_raw",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "vehiculos_utilizados_raw",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "duracion_dias_raw",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "duracion_dias_raw",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "costo_operacion_raw",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "costo_operacion_raw",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "resultado",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "resultado",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "detenidos_raw",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "detenidos_raw",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "area_km2_raw",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "area_km2_raw",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "incidentes_raw",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "incidentes_raw",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "observaciones",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "observaciones",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_sql_oltp_ffaa",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_sql_dw_stg_operaciones",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": []
+	}
+}

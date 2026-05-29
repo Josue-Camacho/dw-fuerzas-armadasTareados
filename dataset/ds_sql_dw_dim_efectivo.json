@@ -1,0 +1,84 @@
+{
+	"name": "ds_sql_dw_dim_efectivo",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_sql_dw_ffaa",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "id_efectivo_dw",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "id_efectivo_origen",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "nombre",
+				"type": "varchar"
+			},
+			{
+				"name": "ci",
+				"type": "varchar"
+			},
+			{
+				"name": "fecha_nacimiento",
+				"type": "date"
+			},
+			{
+				"name": "genero",
+				"type": "varchar"
+			},
+			{
+				"name": "departamento_origen",
+				"type": "varchar"
+			},
+			{
+				"name": "fecha_ingreso",
+				"type": "date"
+			},
+			{
+				"name": "estado",
+				"type": "varchar"
+			},
+			{
+				"name": "salario_mensual",
+				"type": "decimal",
+				"precision": 12,
+				"scale": 2
+			},
+			{
+				"name": "id_especialidad_origen",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "especialidad_nombre",
+				"type": "varchar"
+			},
+			{
+				"name": "especialidad_area",
+				"type": "varchar"
+			},
+			{
+				"name": "id_unidad_actual_origen",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "id_rango_actual_origen",
+				"type": "int",
+				"precision": 10
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "dim_efectivo"
+		}
+	}
+}

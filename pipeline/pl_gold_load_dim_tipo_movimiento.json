@@ -1,0 +1,95 @@
+{
+	"name": "pl_gold_load_dim_tipo_movimiento",
+	"properties": {
+		"activities": [
+			{
+				"name": "copy_dim_tipo_movimiento",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": "SELECT\n    id_tipo AS id_tipo_origen,\n    nombre,\n    descripcion\nFROM [oltp].[tbl_tipos_movimiento];",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"preCopyScript": "DELETE FROM dbo.hechos_movimiento_personal;\nDELETE FROM dbo.dim_tipo_movimiento;\nDBCC CHECKIDENT ('dbo.dim_tipo_movimiento', RESEED, 0);",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false,
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "id_tipo_origen",
+									"type": "Int32",
+									"physicalType": "int"
+								},
+								"sink": {
+									"name": "id_tipo_origen",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "nombre",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "nombre",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "descripcion",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "descripcion",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_sql_oltp_ffaa",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_sql_dw_dim_tipo_movimiento",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": []
+	}
+}

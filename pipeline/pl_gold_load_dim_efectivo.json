@@ -1,0 +1,231 @@
+{
+	"name": "pl_gold_load_dim_efectivo",
+	"properties": {
+		"activities": [
+			{
+				"name": "copy_dim_efectivo",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": "SELECT\n    e.id_efectivo AS id_efectivo_origen,\n    e.nombre,\n    e.ci,\n    TRY_CONVERT(date, e.fecha_nacimiento, 105) AS fecha_nacimiento,\n    e.genero,\n    e.departamento_origen,\n    TRY_CONVERT(date, e.fecha_ingreso, 105) AS fecha_ingreso,\n    e.estado,\n\n    TRY_CONVERT(\n        decimal(12,2),\n        CASE\n            WHEN REPLACE(REPLACE(REPLACE(UPPER(e.salario_mensual), 'BS', ''), ' ', ''), CHAR(9), '') LIKE '%,%.%'\n                THEN REPLACE(REPLACE(REPLACE(REPLACE(UPPER(e.salario_mensual), 'BS', ''), ' ', ''), CHAR(9), ''), ',', '')\n            WHEN REPLACE(REPLACE(REPLACE(UPPER(e.salario_mensual), 'BS', ''), ' ', ''), CHAR(9), '') LIKE '%,%'\n                THEN REPLACE(REPLACE(REPLACE(REPLACE(UPPER(e.salario_mensual), 'BS', ''), ' ', ''), CHAR(9), ''), ',', '.')\n            ELSE REPLACE(REPLACE(REPLACE(UPPER(e.salario_mensual), 'BS', ''), ' ', ''), CHAR(9), '')\n        END\n    ) AS salario_mensual,\n\n    e.id_especialidad AS id_especialidad_origen,\n    esp.nombre AS especialidad_nombre,\n    esp.area AS especialidad_area,\n    e.id_unidad_actual AS id_unidad_actual_origen,\n    e.id_rango_actual AS id_rango_actual_origen\nFROM [oltp].[tbl_efectivos] e\nLEFT JOIN [oltp].[tbl_especialidades] esp\n    ON e.id_especialidad = esp.id_especialidad;",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"preCopyScript": "DELETE FROM dbo.hechos_movimiento_personal;\nDELETE FROM dbo.dim_efectivo;\nDBCC CHECKIDENT ('dbo.dim_efectivo', RESEED, 0);",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false,
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "id_efectivo_origen",
+									"type": "Int32",
+									"physicalType": "int"
+								},
+								"sink": {
+									"name": "id_efectivo_origen",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "nombre",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "nombre",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "ci",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "ci",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "fecha_nacimiento",
+									"type": "Date",
+									"physicalType": "date"
+								},
+								"sink": {
+									"name": "fecha_nacimiento",
+									"type": "Date",
+									"physicalType": "date"
+								}
+							},
+							{
+								"source": {
+									"name": "genero",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "genero",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "departamento_origen",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "departamento_origen",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "fecha_ingreso",
+									"type": "Date",
+									"physicalType": "date"
+								},
+								"sink": {
+									"name": "fecha_ingreso",
+									"type": "Date",
+									"physicalType": "date"
+								}
+							},
+							{
+								"source": {
+									"name": "estado",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "estado",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "salario_mensual",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 12
+								},
+								"sink": {
+									"name": "salario_mensual",
+									"type": "Decimal",
+									"physicalType": "decimal",
+									"scale": 2,
+									"precision": 12
+								}
+							},
+							{
+								"source": {
+									"name": "id_especialidad_origen",
+									"type": "Int32",
+									"physicalType": "int"
+								},
+								"sink": {
+									"name": "id_especialidad_origen",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "especialidad_nombre",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "especialidad_nombre",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "especialidad_area",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "especialidad_area",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "id_unidad_actual_origen",
+									"type": "Int32",
+									"physicalType": "int"
+								},
+								"sink": {
+									"name": "id_unidad_actual_origen",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "id_rango_actual_origen",
+									"type": "Int32",
+									"physicalType": "int"
+								},
+								"sink": {
+									"name": "id_rango_actual_origen",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_sql_oltp_ffaa",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_sql_dw_dim_efectivo",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": []
+	}
+}

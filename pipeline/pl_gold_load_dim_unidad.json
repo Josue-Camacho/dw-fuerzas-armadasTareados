@@ -1,0 +1,143 @@
+{
+	"name": "pl_gold_load_dim_unidad",
+	"properties": {
+		"activities": [
+			{
+				"name": "copy_dim_unidad",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"sqlReaderQuery": "SELECT\n    id_unidad AS id_unidad_origen,\n    id_brigada AS id_brigada_origen,\n    nombre,\n    codigo,\n    ciudad,\n    departamento,\n    tipo_cuartel\nFROM [oltp].[tbl_unidades];",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"preCopyScript": "DELETE FROM dbo.hechos_movimiento_personal;\nDELETE FROM dbo.hechos_operacion;\nDELETE FROM dbo.dim_unidad;\nDBCC CHECKIDENT ('dbo.dim_unidad', RESEED, 0);",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false,
+						"disableMetricsCollection": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "id_unidad_origen",
+									"type": "Int32",
+									"physicalType": "int"
+								},
+								"sink": {
+									"name": "id_unidad_origen",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "id_brigada_origen",
+									"type": "Int32",
+									"physicalType": "int"
+								},
+								"sink": {
+									"name": "id_brigada_origen",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "nombre",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "nombre",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "codigo",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "codigo",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "ciudad",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "ciudad",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "departamento",
+									"type": "String",
+									"physicalType": "nvarchar"
+								},
+								"sink": {
+									"name": "departamento",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "tipo_cuartel",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "tipo_cuartel",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "ds_sql_oltp_ffaa",
+						"type": "DatasetReference"
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "ds_sql_dw_dim_unidad",
+						"type": "DatasetReference"
+					}
+				]
+			}
+		],
+		"annotations": []
+	}
+}

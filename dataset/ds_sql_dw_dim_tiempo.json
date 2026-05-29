@@ -1,0 +1,59 @@
+{
+	"name": "ds_sql_dw_dim_tiempo",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "ls_sql_dw_ffaa",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "id_tiempo",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "fecha",
+				"type": "date"
+			},
+			{
+				"name": "anio",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "mes",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "nombre_mes",
+				"type": "varchar"
+			},
+			{
+				"name": "trimestre",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "dia",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "dia_semana",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "nombre_dia_semana",
+				"type": "varchar"
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "dim_tiempo"
+		}
+	}
+}
