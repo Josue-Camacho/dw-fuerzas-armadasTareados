@@ -227,6 +227,55 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/ds_sql_dw_dim_rango')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_sql_dw_ffaa",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "id_rango_dw",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "id_rango_origen",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "nombre",
+						"type": "varchar"
+					},
+					{
+						"name": "categoria",
+						"type": "varchar"
+					},
+					{
+						"name": "nivel_jerarquico",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "abreviatura",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "dim_rango"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_sql_dw_ffaa')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/pl_bronze_tbl_efectivos')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -534,6 +583,136 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/ds_sql_oltp_ffaa')]",
 				"[concat(variables('factoryId'), '/datasets/ds_adls_bronze_ffaa')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pl_gold_load_dim_rango')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "copy_dim_rango",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"sqlReaderQuery": "SELECT\n    id_rango AS id_rango_origen,\n    nombre,\n    categoria,\n    nivel_jerarquico,\n    abreviatura\nFROM [oltp].[tbl_rangos];",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"preCopyScript": "DELETE FROM dbo.hechos_movimiento_personal;\nDELETE FROM dbo.dim_rango;\nDBCC CHECKIDENT ('dbo.dim_rango', RESEED, 0);",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false,
+								"disableMetricsCollection": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "id_rango_origen",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "id_rango_origen",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "nombre",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "nombre",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "categoria",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "categoria",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "nivel_jerarquico",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "nivel_jerarquico",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "abreviatura",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "abreviatura",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "ds_sql_oltp_ffaa",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ds_sql_dw_dim_rango",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ds_sql_oltp_ffaa')]",
+				"[concat(variables('factoryId'), '/datasets/ds_sql_dw_dim_rango')]"
 			]
 		}
 	]
