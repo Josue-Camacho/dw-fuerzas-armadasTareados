@@ -276,6 +276,513 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/ds_sql_dw_dim_tipo_movimiento')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_sql_dw_ffaa",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "id_tipo_movimiento_dw",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "id_tipo_origen",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "nombre",
+						"type": "varchar"
+					},
+					{
+						"name": "descripcion",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "dim_tipo_movimiento"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_sql_dw_ffaa')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_sql_dw_dim_tipo_operacion')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_sql_dw_ffaa",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "id_tipo_operacion_dw",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "id_tipo_origen",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "nombre",
+						"type": "varchar"
+					},
+					{
+						"name": "categoria",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "dim_tipo_operacion"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_sql_dw_ffaa')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_sql_dw_dim_zona_operacion')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_sql_dw_ffaa",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "id_zona_dw",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "id_zona_origen",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "nombre",
+						"type": "varchar"
+					},
+					{
+						"name": "departamento",
+						"type": "varchar"
+					},
+					{
+						"name": "frontera_con",
+						"type": "varchar"
+					},
+					{
+						"name": "tipo_terreno",
+						"type": "varchar"
+					},
+					{
+						"name": "altitud_msnm",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "nivel_riesgo",
+						"type": "varchar"
+					},
+					{
+						"name": "acceso_carretero",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "dim_zona_operacion"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_sql_dw_ffaa')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_sql_dw_dim_unidad')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_sql_dw_ffaa",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "id_unidad_dw",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "id_unidad_origen",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "id_brigada_origen",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "nombre",
+						"type": "varchar"
+					},
+					{
+						"name": "codigo",
+						"type": "varchar"
+					},
+					{
+						"name": "ciudad",
+						"type": "varchar"
+					},
+					{
+						"name": "departamento",
+						"type": "varchar"
+					},
+					{
+						"name": "tipo_cuartel",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "dim_unidad"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_sql_dw_ffaa')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_sql_dw_dim_efectivo')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_sql_dw_ffaa",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "id_efectivo_dw",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "id_efectivo_origen",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "nombre",
+						"type": "varchar"
+					},
+					{
+						"name": "ci",
+						"type": "varchar"
+					},
+					{
+						"name": "fecha_nacimiento",
+						"type": "date"
+					},
+					{
+						"name": "genero",
+						"type": "varchar"
+					},
+					{
+						"name": "departamento_origen",
+						"type": "varchar"
+					},
+					{
+						"name": "fecha_ingreso",
+						"type": "date"
+					},
+					{
+						"name": "estado",
+						"type": "varchar"
+					},
+					{
+						"name": "salario_mensual",
+						"type": "decimal",
+						"precision": 12,
+						"scale": 2
+					},
+					{
+						"name": "id_especialidad_origen",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "especialidad_nombre",
+						"type": "varchar"
+					},
+					{
+						"name": "especialidad_area",
+						"type": "varchar"
+					},
+					{
+						"name": "id_unidad_actual_origen",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "id_rango_actual_origen",
+						"type": "int",
+						"precision": 10
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "dim_efectivo"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_sql_dw_ffaa')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_sql_dw_dim_tiempo')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_sql_dw_ffaa",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "id_tiempo",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "fecha",
+						"type": "date"
+					},
+					{
+						"name": "anio",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "mes",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "nombre_mes",
+						"type": "varchar"
+					},
+					{
+						"name": "trimestre",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "dia",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "dia_semana",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "nombre_dia_semana",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "dim_tiempo"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_sql_dw_ffaa')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_sql_dw_stg_movimientos_personal')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_sql_dw_ffaa",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "id_movimiento_origen",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "id_efectivo_origen",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "id_unidad_destino_origen",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "id_rango_origen",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "id_tipo_origen",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "fecha_movimiento",
+						"type": "date"
+					},
+					{
+						"name": "antiguedad_anios",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "salario_mensual",
+						"type": "decimal",
+						"precision": 12,
+						"scale": 2
+					},
+					{
+						"name": "observaciones",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "stg_movimientos_personal"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_sql_dw_ffaa')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/ds_sql_dw_stg_operaciones')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "ls_sql_dw_ffaa",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "AzureSqlTable",
+				"schema": [
+					{
+						"name": "id_operacion_origen",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "id_tipo_origen",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "id_unidad_responsable_origen",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "id_zona_origen",
+						"type": "int",
+						"precision": 10
+					},
+					{
+						"name": "nombre_operacion",
+						"type": "varchar"
+					},
+					{
+						"name": "fecha_inicio",
+						"type": "date"
+					},
+					{
+						"name": "fecha_fin",
+						"type": "date"
+					},
+					{
+						"name": "efectivos_desplegados_raw",
+						"type": "varchar"
+					},
+					{
+						"name": "vehiculos_utilizados_raw",
+						"type": "varchar"
+					},
+					{
+						"name": "duracion_dias_raw",
+						"type": "varchar"
+					},
+					{
+						"name": "costo_operacion_raw",
+						"type": "varchar"
+					},
+					{
+						"name": "resultado",
+						"type": "varchar"
+					},
+					{
+						"name": "detenidos_raw",
+						"type": "varchar"
+					},
+					{
+						"name": "area_km2_raw",
+						"type": "varchar"
+					},
+					{
+						"name": "incidentes_raw",
+						"type": "varchar"
+					},
+					{
+						"name": "observaciones",
+						"type": "varchar"
+					}
+				],
+				"typeProperties": {
+					"schema": "dbo",
+					"table": "stg_operaciones"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/ls_sql_dw_ffaa')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/pl_bronze_tbl_efectivos')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -713,6 +1220,384 @@
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/ds_sql_oltp_ffaa')]",
 				"[concat(variables('factoryId'), '/datasets/ds_sql_dw_dim_rango')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pl_gold_load_dim_tipo_movimiento')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "copy_dim_tipo_movimiento",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"sqlReaderQuery": "SELECT\n    id_tipo AS id_tipo_origen,\n    nombre,\n    descripcion\nFROM [oltp].[tbl_tipos_movimiento];",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"preCopyScript": "DELETE FROM dbo.hechos_movimiento_personal;\nDELETE FROM dbo.dim_tipo_movimiento;\nDBCC CHECKIDENT ('dbo.dim_tipo_movimiento', RESEED, 0);",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false,
+								"disableMetricsCollection": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "id_tipo_origen",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "id_tipo_origen",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "nombre",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "nombre",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "descripcion",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "descripcion",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "ds_sql_oltp_ffaa",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ds_sql_dw_dim_tipo_movimiento",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ds_sql_oltp_ffaa')]",
+				"[concat(variables('factoryId'), '/datasets/ds_sql_dw_dim_tipo_movimiento')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pl_gold_load_dim_tipo_operacion')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "copy_dim_tipo_operacion",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"sqlReaderQuery": "SELECT\n    id_tipo AS id_tipo_origen,\n    nombre,\n    categoria\nFROM [oltp].[tbl_tipos_operacion];",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"preCopyScript": "DELETE FROM dbo.hechos_operacion;\nDELETE FROM dbo.dim_tipo_operacion;\nDBCC CHECKIDENT ('dbo.dim_tipo_operacion', RESEED, 0);",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false,
+								"disableMetricsCollection": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "id_tipo_origen",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "id_tipo_origen",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "nombre",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "nombre",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "categoria",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "categoria",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "ds_sql_oltp_ffaa",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ds_sql_dw_dim_tipo_operacion",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ds_sql_oltp_ffaa')]",
+				"[concat(variables('factoryId'), '/datasets/ds_sql_dw_dim_tipo_operacion')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/pl_gold_load_dim_zona_operacion')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "copy_dim_zona_operacion",
+						"type": "Copy",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"source": {
+								"type": "AzureSqlSource",
+								"sqlReaderQuery": "SELECT\n    id_zona AS id_zona_origen,\n    nombre,\n    departamento,\n    frontera_con,\n    tipo_terreno,\n    altitud_msnm,\n    nivel_riesgo,\n    acceso_carretero\nFROM [oltp].[tbl_zonas];",
+								"queryTimeout": "02:00:00",
+								"partitionOption": "None"
+							},
+							"sink": {
+								"type": "AzureSqlSink",
+								"preCopyScript": "DELETE FROM dbo.hechos_operacion;\nDELETE FROM dbo.dim_zona_operacion;\nDBCC CHECKIDENT ('dbo.dim_zona_operacion', RESEED, 0);",
+								"writeBehavior": "insert",
+								"sqlWriterUseTableLock": false,
+								"disableMetricsCollection": false
+							},
+							"enableStaging": false,
+							"translator": {
+								"type": "TabularTranslator",
+								"mappings": [
+									{
+										"source": {
+											"name": "id_zona_origen",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "id_zona_origen",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "nombre",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "nombre",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "departamento",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "departamento",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "frontera_con",
+											"type": "String",
+											"physicalType": "nvarchar"
+										},
+										"sink": {
+											"name": "frontera_con",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "tipo_terreno",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "tipo_terreno",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "altitud_msnm",
+											"type": "Int32",
+											"physicalType": "int"
+										},
+										"sink": {
+											"name": "altitud_msnm",
+											"type": "Int32",
+											"physicalType": "int"
+										}
+									},
+									{
+										"source": {
+											"name": "nivel_riesgo",
+											"type": "String",
+											"physicalType": "varchar"
+										},
+										"sink": {
+											"name": "nivel_riesgo",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									},
+									{
+										"source": {
+											"name": "acceso_carretero",
+											"type": "Boolean",
+											"physicalType": "bit"
+										},
+										"sink": {
+											"name": "acceso_carretero",
+											"type": "String",
+											"physicalType": "varchar"
+										}
+									}
+								],
+								"typeConversion": true,
+								"typeConversionSettings": {
+									"allowDataTruncation": true,
+									"treatBooleanAsNumber": false
+								}
+							}
+						},
+						"inputs": [
+							{
+								"referenceName": "ds_sql_oltp_ffaa",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						],
+						"outputs": [
+							{
+								"referenceName": "ds_sql_dw_dim_zona_operacion",
+								"type": "DatasetReference",
+								"parameters": {}
+							}
+						]
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/ds_sql_oltp_ffaa')]",
+				"[concat(variables('factoryId'), '/datasets/ds_sql_dw_dim_zona_operacion')]"
 			]
 		}
 	]
