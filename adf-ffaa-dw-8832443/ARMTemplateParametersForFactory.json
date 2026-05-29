@@ -11,6 +11,9 @@
 		"ls_sql_oltp_ffaa_password": {
 			"value": ""
 		},
+		"ls_adls_ffaa_accountKey": {
+			"value": ""
+		},
 		"ls_sql_dw_ffaa_properties_typeProperties_server": {
 			"value": "sql-ffaa-dw-8832443.database.windows.net"
 		},
@@ -28,6 +31,9 @@
 		},
 		"ls_sql_oltp_ffaa_properties_typeProperties_userName": {
 			"value": "userSisGer"
+		},
+		"ls_adls_ffaa_properties_typeProperties_url": {
+			"value": "https://saffaadw8832443.dfs.core.windows.net/"
 		}
 	}
 }

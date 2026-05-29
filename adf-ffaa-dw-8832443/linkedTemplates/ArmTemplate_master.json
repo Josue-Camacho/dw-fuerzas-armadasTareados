@@ -15,6 +15,10 @@
 			"type": "secureString",
 			"metadata": "Cadena protegida para \"password\"de \"ls_sql_oltp_ffaa\""
 		},
+		"ls_adls_ffaa_accountKey": {
+			"type": "secureString",
+			"metadata": "Cadena protegida para \"accountKey\"de \"ls_adls_ffaa\""
+		},
 		"ls_sql_dw_ffaa_properties_typeProperties_server": {
 			"type": "string",
 			"defaultValue": "sql-ffaa-dw-8832443.database.windows.net"
@@ -38,6 +42,10 @@
 		"ls_sql_oltp_ffaa_properties_typeProperties_userName": {
 			"type": "string",
 			"defaultValue": "userSisGer"
+		},
+		"ls_adls_ffaa_properties_typeProperties_url": {
+			"type": "string",
+			"defaultValue": "https://saffaadw8832443.dfs.core.windows.net/"
 		},
 		"containerUri": {
 			"type": "string",
@@ -72,6 +80,9 @@
 					"ls_sql_oltp_ffaa_password": {
 						"value": "[parameters('ls_sql_oltp_ffaa_password')]"
 					},
+					"ls_adls_ffaa_accountKey": {
+						"value": "[parameters('ls_adls_ffaa_accountKey')]"
+					},
 					"ls_sql_dw_ffaa_properties_typeProperties_server": {
 						"value": "[parameters('ls_sql_dw_ffaa_properties_typeProperties_server')]"
 					},
@@ -89,6 +100,9 @@
 					},
 					"ls_sql_oltp_ffaa_properties_typeProperties_userName": {
 						"value": "[parameters('ls_sql_oltp_ffaa_properties_typeProperties_userName')]"
+					},
+					"ls_adls_ffaa_properties_typeProperties_url": {
+						"value": "[parameters('ls_adls_ffaa_properties_typeProperties_url')]"
 					}
 				}
 			},
